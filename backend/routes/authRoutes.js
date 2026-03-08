@@ -54,20 +54,25 @@ router.post('/update-password', async (req, res) => {
 
     try {
         const token = authHeader.split(' ')[1];
-        jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-        const admin = await Admin.findOne({ username: 'admin' });
-        if (!admin) return res.status(404).json({ message: 'Admin not found' });
+        // Find admin by ID from token
+        const admin = await Admin.findById(decoded.id);
+        if (!admin) return res.status(404).json({ message: 'Admin session invalid. Please log in again.' });
 
         const isMatch = await bcrypt.compare(oldPassword, admin.password);
         if (!isMatch) return res.status(400).json({ message: 'Incorrect old password' });
 
-        admin.password = newPassword;
+        admin.password = newPassword; // Pre-save hook will hash it
         await admin.save();
         res.json({ message: 'Password updated successfully' });
     } catch (err) {
-        res.status(401).json({ message: 'Invalid Token' });
+        console.error("Update Password Error:", err);
+        res.status(401).json({ message: 'Invalid or expired token' });
     }
 });
+
+// Auth Ping (For Debugging 404s)
+router.get('/ping', (req, res) => res.json({ message: 'Auth routes are working!' }));
 
 module.exports = router;
