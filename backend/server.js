@@ -13,9 +13,16 @@ app.use(cors({
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
 
+if (!MONGO_URI) {
+    console.error('CRITICAL ERROR: MONGO_URI is not defined in environment variables!');
+}
+
 mongoose.connect(MONGO_URI)
-    .then(() => console.log('MongoDB Connected'))
-    .catch(err => console.log(err));
+    .then(() => console.log('✅ MongoDB Connected Successfully'))
+    .catch(err => {
+        console.error('❌ MongoDB Connection Error:');
+        console.error(err);
+    });
 
 const skillRoutes = require('./routes/skillRoutes');
 const experienceRoutes = require('./routes/experienceRoutes');
