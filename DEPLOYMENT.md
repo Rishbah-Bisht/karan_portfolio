@@ -9,7 +9,7 @@
 
 ## 2. Frontend Deployment (Vercel)
 - **Environment Variables**:
-  - `VITE_API_BASE_URL`: The URL of your deployed backend (e.g., `https://your-backend.vercel.app/api`).
+  - `VITE_API_BASE_URL`: The URL of your deployed backend **including /api** (e.g., `https://your-backend.vercel.app/api`).
 - **Build Settings**:
   - Framework: Vite
   - Build Command: `npm run build`

@@ -6,7 +6,7 @@ require('dotenv').config();
 const app = express();
 app.use(express.json());
 app.use(cors({
-    origin: '*', // Production mein isey apne frontend URL se replace karein
+    origin: ["https://karan-portfolio-theta.vercel.app", "http://localhost:5173", "http://localhost:5174"],
     credentials: true
 }));
 
