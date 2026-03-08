@@ -14,7 +14,7 @@ const Login = () => {
         setError('');
         setLoading(true);
         try {
-            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+            const API_BASE = (import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api').replace(/\/$/, "");
             const res = await axios.post(`${API_BASE}/auth/login`, { password });
             localStorage.setItem('adminToken', res.data.token);
             navigate('/admin');
