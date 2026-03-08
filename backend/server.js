@@ -42,7 +42,12 @@ app.use('/api/certifications', certificationRoutes);
 app.use('/api/projects', projectRoutes);
 
 app.get('/', (req, res) => {
-    res.send('API is running...');
+    const status = mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected';
+    res.json({
+        message: 'Karan Portfolio API is running...',
+        databaseStatus: status,
+        help: status === 'Disconnected' ? 'Please check your MongoDB Atlas IP Whitelist (add 0.0.0.0/0)' : 'All systems go!'
+    });
 });
 
 app.listen(PORT, () => {
