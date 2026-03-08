@@ -9,7 +9,11 @@ const Contact = () => {
         e.preventDefault();
         setStatus({ loading: true, success: false, error: null });
         try {
-            const API_BASE = (import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api').replace(/\/$/, "");
+            let API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+            if (!API_BASE.endsWith('/api') && !API_BASE.endsWith('/api/')) {
+                API_BASE = API_BASE.replace(/\/$/, "") + '/api';
+            }
+            API_BASE = API_BASE.replace(/\/$/, "");
             await axios.post(`${API_BASE}/contact`, formData);
             setStatus({ loading: false, success: true, error: null });
             setFormData({ name: '', email: '', message: '' });

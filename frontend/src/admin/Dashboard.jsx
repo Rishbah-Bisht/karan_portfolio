@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const API_BASE = (import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api').replace(/\/$/, "");
+let API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+if (!API_BASE.endsWith('/api') && !API_BASE.endsWith('/api/')) {
+    API_BASE = API_BASE.replace(/\/$/, "") + '/api';
+}
+API_BASE = API_BASE.replace(/\/$/, "");
 
 const Dashboard = () => {
     const [activeTab, setActiveTab] = useState('profile');
