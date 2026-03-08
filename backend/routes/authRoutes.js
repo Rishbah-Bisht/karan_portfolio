@@ -4,14 +4,31 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const Admin = require('../models/Admin');
 
+// Register Route
+router.post('/register', async (req, res) => {
+    const { username, password } = req.body;
+    try {
+        const adminExists = await Admin.findOne({ username });
+        if (adminExists) return res.status(400).json({ message: 'User already exists' });
+
+        const admin = new Admin({ username, password });
+        await admin.save();
+
+        const token = jwt.sign({ admin: true, id: admin._id }, process.env.JWT_SECRET, { expiresIn: '2h' });
+        res.status(201).json({ token, message: 'Admin registered successfully' });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 // Login Route
 router.post('/login', async (req, res) => {
-    const { password } = req.body;
+    const { username, password } = req.body; // Use username from body
     try {
-        const admin = await Admin.findOne({ username: 'admin' });
+        const admin = await Admin.findOne({ username });
         if (!admin) {
-            // Fallback to .env during migration if no DB user exists yet
-            if (password === process.env.ADMIN_PASSWORD) {
+            // Fallback for initial account provided in .env
+            if (username === 'admin' && password === process.env.ADMIN_PASSWORD) {
                 const token = jwt.sign({ admin: true }, process.env.JWT_SECRET, { expiresIn: '1h' });
                 return res.json({ token });
             }
