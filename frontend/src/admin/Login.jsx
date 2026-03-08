@@ -44,13 +44,10 @@ const Login = () => {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-[#F8F9FC] p-6">
-            <div className="relative w-full max-w-md">
-                <div className="absolute -top-32 -left-32 w-64 h-64 bg-[#5D3FF3]/10 rounded-full blur-[100px]"></div>
-                <div className="absolute -bottom-32 -right-32 w-64 h-64 bg-[#5D3FF3]/5 rounded-full blur-[100px]"></div>
-
-                <div className="relative bg-white/70 backdrop-blur-3xl border border-white p-12 rounded-[3rem] shadow-[0_40px_80px_rgba(0,0,0,0.05)] text-center">
-                    <div className="mx-auto w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-[#5D3FF3] rounded-2xl flex items-center justify-center text-white font-black text-xs sm:text-sm md:text-base mb-6 sm:mb-8 md:mb-10 shadow-xl shadow-[#5D3FF3]/30 px-2 text-center">
-                        Karan Negi
+            <div className="w-full max-w-md">
+                <div className="bg-white border border-gray-100 p-10 rounded-3xl shadow-sm text-center">
+                    <div className="mx-auto w-14 h-14 bg-[#5D3FF3] rounded-xl flex items-center justify-center text-white font-black text-sm mb-8">
+                        KN
                     </div>
 
                     <h2 className="text-3xl font-bold tracking-tight text-[#111827] mb-2">
@@ -108,7 +105,7 @@ const Login = () => {
                         </div>
 
                         {error && (
-                            <div className="p-4 bg-red-50 border border-red-100 rounded-2xl text-red-500 text-[11px] font-bold uppercase tracking-wider animate-shake text-center">
+                            <div className="p-4 bg-red-50 border border-red-100 rounded-xl text-red-500 text-[11px] font-bold uppercase tracking-wider text-center">
                                 {error}
                             </div>
                         )}
@@ -122,20 +119,20 @@ const Login = () => {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full py-5 bg-[#111827] text-white rounded-2xl font-black uppercase text-[11px] tracking-[0.3em] shadow-xl hover:bg-black transition-all active:scale-95 group flex items-center justify-center gap-2"
+                            className="w-full py-5 bg-[#111827] text-white rounded-xl font-bold uppercase text-[11px] tracking-[0.2em] hover:bg-black transition-colors flex items-center justify-center gap-2"
                         >
                             {loading ? 'Processing...' : (isSignup ? 'Create Account' : 'Authorize Entry')}
                         </button>
                     </form>
 
-                    <div className="mt-8 pt-8 border-t border-gray-100">
+                    <div className="mt-8 pt-8 border-t border-gray-50">
                         <button
                             onClick={() => {
                                 setIsSignup(!isSignup);
                                 setError('');
                                 setSuccess('');
                             }}
-                            className="text-[11px] font-bold uppercase tracking-widest text-gray-400 hover:text-[#5D3FF3] transition-colors"
+                            className="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-[#5D3FF3]"
                         >
                             {isSignup ? 'Already have an account? Sign In' : "Don't have an account? Sign Up"}
                         </button>

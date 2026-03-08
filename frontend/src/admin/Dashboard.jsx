@@ -127,10 +127,7 @@ const Dashboard = () => {
                         <h1 className="text-4xl font-bold tracking-tight capitalize">{activeTab}</h1>
                     </header>
 
-                    <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] border border-gray-100 shadow-[0_20px_50px_rgba(0,0,0,0.03)] p-6 md:p-10 animate-fade-in relative overflow-hidden">
-                        {/* Subtle background flair */}
-                        <div className="absolute -top-24 -right-24 w-64 h-64 bg-[#5D3FF3]/5 rounded-full blur-[100px]"></div>
-
+                    <div className="bg-white rounded-3xl border border-gray-100 p-6 md:p-10 relative overflow-hidden">
                         <div className="relative z-10">
                             {activeTab === 'profile' && <ProfileManager profile={profile} refresh={fetchData} token={token} />}
                             {activeTab === 'skills' && <SkillsManager skills={skills} refresh={fetchData} token={token} />}
@@ -162,7 +159,7 @@ const TextAreaField = ({ label, ...props }) => (
 );
 
 const ActionButton = ({ children, ...props }) => (
-    <button {...props} className="w-full py-5 bg-[#111827] text-white rounded-2xl font-black uppercase text-[10px] tracking-[0.2em] shadow-lg hover:bg-black hover:shadow-xl transition-all active:scale-95">
+    <button {...props} className="w-full py-4 bg-[#111827] text-white rounded-xl font-bold uppercase text-[10px] tracking-[0.1em] hover:bg-black transition-colors">
         {children}
     </button>
 );
@@ -218,15 +215,15 @@ const SkillsManager = ({ skills, refresh, token }) => {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {skills.map(s => (
-                    <div key={s._id} className="p-6 bg-[#F8F9FC] border border-gray-100 rounded-2xl flex justify-between items-center group">
-                        <div className="flex items-center gap-4">
-                            <div className="w-2 h-2 rounded-full bg-[#5D3FF3]"></div>
+                    <div key={s._id} className="p-5 bg-white border border-gray-100 rounded-xl flex justify-between items-center">
+                        <div className="flex items-center gap-3">
+                            <div className="w-1.5 h-1.5 rounded-full bg-[#5D3FF3]"></div>
                             <div>
-                                <p className="font-bold">{s.name}</p>
-                                <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest">{s.category}</p>
+                                <p className="font-bold text-sm">{s.name}</p>
+                                <p className="text-[9px] text-gray-400 font-bold uppercase tracking-widest">{s.category}</p>
                             </div>
                         </div>
-                        <button onClick={async () => { await axios.delete(`${API_BASE}/skills/${s._id}`, config); refresh(); }} className="text-gray-300 hover:text-red-500 transition-colors">
+                        <button onClick={async () => { await axios.delete(`${API_BASE}/skills/${s._id}`, config); refresh(); }} className="text-gray-300 hover:text-red-500">
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                         </button>
                     </div>
